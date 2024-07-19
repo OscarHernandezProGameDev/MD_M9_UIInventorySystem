@@ -9,10 +9,13 @@ public class Inventory
     public Inventory()
     {
         itemLists = new List<Item>();
+        AddItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 1 });
     }
 
     public void AddItem(Item item)
     {
         itemLists.Add(item);
     }
+
+    public List<Item> GetItemLists() => itemLists;
 }
