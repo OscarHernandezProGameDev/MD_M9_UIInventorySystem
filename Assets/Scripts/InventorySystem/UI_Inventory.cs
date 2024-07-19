@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_Inventory : MonoBehaviour
 {
@@ -22,6 +23,10 @@ public class UI_Inventory : MonoBehaviour
             var newUIItem = Instantiate(itemsTemplate, itemsContainer).GetComponent<RectTransform>();
 
             newUIItem.name = item.itemType.ToString();
+
+            var image = newUIItem.Find("Border/Image").GetComponent<Image>();
+
+            image.sprite = item.GetSprite();
         }
     }
 }
