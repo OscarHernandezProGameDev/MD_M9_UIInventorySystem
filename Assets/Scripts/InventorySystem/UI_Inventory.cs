@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -44,6 +45,13 @@ public class UI_Inventory : MonoBehaviour
             var image = newUIItem.Find("Border/Image").GetComponent<Image>();
 
             image.sprite = item.GetSprite();
+
+            TextMeshProUGUI uiText = newUIItem.Find("Border/Image/TextBackground/Text").GetComponent<TextMeshProUGUI>();
+
+            if (item.amount > 1)
+                uiText.SetText(item.amount.ToString());
+            else
+                uiText.transform.parent.gameObject.SetActive(false);
         }
     }
 }

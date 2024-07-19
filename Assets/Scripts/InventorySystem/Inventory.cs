@@ -18,7 +18,24 @@ public class Inventory
 
     public void AddItem(Item item)
     {
-        itemLists.Add(item);
+        if (item.IsStackable())
+        {
+            bool itemAllReadyInInventory = false;
+
+            foreach (Item inventoryItem in itemLists)
+            {
+                if (inventoryItem.itemType == item.itemType)
+                {
+                    inventoryItem.amount += item.amount;
+                    itemAllReadyInInventory = true;
+                }
+            }
+
+            if (!itemAllReadyInInventory)
+                itemLists.Add(item);
+        }
+        else
+            itemLists.Add(item);
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
 

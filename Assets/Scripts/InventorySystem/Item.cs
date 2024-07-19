@@ -32,4 +32,20 @@ public class Item
             case ItemType.Ring: return ItemAssets.Instance.ringSprite;
         }
     }
+
+    public bool IsStackable()
+    {
+        switch(itemType)
+        {
+            default:
+            case ItemType.HealthPotion:
+            case ItemType.ManaPotion:
+            case ItemType.Coin:
+            case ItemType.Stone:
+                return true;
+            case ItemType.Sword:
+            case ItemType.Ring: 
+                return false;
+        }
+    }
 }
