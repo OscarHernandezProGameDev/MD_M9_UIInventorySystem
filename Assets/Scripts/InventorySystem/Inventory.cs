@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory
 {
+    public event EventHandler OnItemListChanged;
     public List<Item> itemLists = new List<Item>();
 
     public Inventory()
@@ -17,6 +19,7 @@ public class Inventory
     public void AddItem(Item item)
     {
         itemLists.Add(item);
+        OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public List<Item> GetItemLists() => itemLists;
