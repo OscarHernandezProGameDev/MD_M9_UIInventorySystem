@@ -11,9 +11,10 @@ public class Inventory
     public Inventory()
     {
         itemLists = new List<Item>();
-        AddItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 99 });
         AddItem(new Item { itemType = Item.ItemType.ManaPotion, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Sword, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 98 });
     }
 
     public void AddItem(Item item)
@@ -26,8 +27,19 @@ public class Inventory
             {
                 if (inventoryItem.itemType == item.itemType)
                 {
-                    inventoryItem.amount += item.amount;
-                    itemAllReadyInInventory = true;
+                    int totalAmount = inventoryItem.amount + item.amount;
+                    if (totalAmount <= 99)
+                    {
+                        inventoryItem.amount = totalAmount;
+                        itemAllReadyInInventory = true;
+                    }
+                    else
+                    {
+                        int remainingAmount = totalAmount - 99;
+
+                        inventoryItem.amount = 99;
+                        item.amount = remainingAmount;
+                    }
                 }
             }
 
