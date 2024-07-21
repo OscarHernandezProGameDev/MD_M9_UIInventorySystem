@@ -7,17 +7,22 @@ public class AttackControls : MonoBehaviour
 
     [SerializeField] private GatherInput gInput;
     private Animator animator;
+    private Player player;
     public bool attackStarted;
     [SerializeField] private PlayerControls playerControls;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        player = GetComponent<Player>();
     }
 
 
     void Update()
     {
+        if (player.AtInventory)
+            return;
+
         if (gInput.tryToAttack)
         {
             if (!attackStarted)
@@ -30,7 +35,7 @@ public class AttackControls : MonoBehaviour
 
         if (gInput.trySpecialAttack)
         {
-            if(attackStarted == false && playerControls.isGrounded)
+            if (attackStarted == false && playerControls.isGrounded)
             {
                 attackStarted = true;
                 animator.Play("Attack_Special");
@@ -50,7 +55,7 @@ public class AttackControls : MonoBehaviour
     public void ResetSpecialAttack()
     {
         attackStarted = false;
-       
+
     }
 
 }

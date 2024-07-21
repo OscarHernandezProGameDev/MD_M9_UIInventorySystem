@@ -31,14 +31,16 @@ public class EventsManager : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (currentSelection != null)
-            CleanSelection();
+        CleanSelection();
     }
 
-    private void CleanSelection()
+    public void CleanSelection()
     {
-        currentSetEvent.Deselected();
-        currentSetEvent = null;
-        currentSelection = null;
+        if (currentSelection != null)
+        {
+            currentSetEvent.Deselected();
+            currentSetEvent = null;
+            currentSelection = null;
+        }
     }
 }
