@@ -14,6 +14,7 @@ public class SetEvent : MonoBehaviour
     private GameObject displayOptions;
 
     public Item item;
+    public int id;
 
     public void Selected()
     {
@@ -46,6 +47,6 @@ public class SetEvent : MonoBehaviour
         if (data.button == PointerEventData.InputButton.Left)
             eventsManager.SetCurrentSelection(gameObject, item);
         else if (data.button == PointerEventData.InputButton.Right)
-            eventsManager.SetCurrentDisplayOptions(gameObject, displayOptions, item);
+            eventsManager.SetCurrentDisplayOptions(gameObject, displayOptions, item, id);
     }
 }

@@ -18,6 +18,20 @@ public class ItemWorld : MonoBehaviour
         return itemWorld;
     }
 
+    public static ItemWorld DropItem(Vector3 dropPosition, Item item)
+    {
+        Vector2 randomDir;
+        int chooseDir = Random.Range(0, 2);
+
+        randomDir = (chooseDir == 0) ? Vector2.left : Vector2.right;
+
+        ItemWorld itemWorld = SpawnItemWorld((Vector2)dropPosition + randomDir, item);
+
+        itemWorld.GetComponent<Rigidbody2D>().AddForce(randomDir * 2, ForceMode2D.Impulse);
+
+        return itemWorld;
+    }
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();

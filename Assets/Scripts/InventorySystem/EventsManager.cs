@@ -16,10 +16,18 @@ public class EventsManager : MonoBehaviour, IPointerClickHandler
     private SetEvent currentSetEvent;
     private GameObject currentDisplayOptions;
 
+    private Player player;
+    private Inventory myInventory;
+
+    private Button dropButton;
+    //private Button useButton;
+
     private Color transparent = new Color(0, 0, 0, 0);
 
     private void Awake()
     {
+        player = FindAnyObjectByType<Player>();
+
         currentSelection = null;
         currentSelectionImage.color = transparent;
         currentSelectionTitle.SetText("");
@@ -42,12 +50,14 @@ public class EventsManager : MonoBehaviour, IPointerClickHandler
             currentSelectionImage.color = Color.white;
             currentSelectionTitle.SetText(AddSpacesToCamelCase(item.itemType.ToString()));
             currentSelectionDescription.SetText(item.GetDescription());
+
+            myInventory = player.GetInventory();
         }
         else
             CleanSelection();
     }
 
-    public void SetCurrentDisplayOptions(GameObject selection, GameObject displayOptions, Item item)
+    public void SetCurrentDisplayOptions(GameObject selection, GameObject displayOptions, Item item, int id)
     {
         currentDisplayOptions = displayOptions;
 
@@ -57,7 +67,11 @@ public class EventsManager : MonoBehaviour, IPointerClickHandler
         if (displayOptions.activeInHierarchy)
             displayOptions.SetActive(false);
         else
+        {
             displayOptions.SetActive(true);
+            dropButton = displayOptions.transform.Find("Panel/Button_Drop").GetComponent<Button>();
+            dropButton.onClick.AddListener(() => DropItem(item, id));
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -81,6 +95,17 @@ public class EventsManager : MonoBehaviour, IPointerClickHandler
         {
             currentDisplayOptions.SetActive(false);
             currentDisplayOptions = null;
+        }
+    }
+
+    public void DropItem(Item item, int id)
+    {
+        if (item.id == id)
+        {
+            Item duplicateItem = new Item { itemType = item.itemType, amount = item.amount };
+
+            myInventory.RemoveItem(item);
+            ItemWorld.DropItem(player.GetPosition(), duplicateItem);
         }
     }
 

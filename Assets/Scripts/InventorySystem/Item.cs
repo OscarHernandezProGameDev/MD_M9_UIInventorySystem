@@ -16,6 +16,7 @@ public class Item
         Ring
     }
 
+    public int id;
     public ItemType itemType;
     public int amount;
 

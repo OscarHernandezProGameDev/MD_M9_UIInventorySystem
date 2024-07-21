@@ -14,6 +14,11 @@ public class Player : MonoBehaviour
 
     public bool AtInventory { get; private set; }
 
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,5 +70,10 @@ public class Player : MonoBehaviour
         inventoryMenu.SetActive(false);
         eventsManager.CleanSelection();
         AtInventory = false;
+    }
+
+    internal Inventory GetInventory()
+    {
+        return inventory;
     }
 }

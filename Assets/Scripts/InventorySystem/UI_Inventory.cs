@@ -57,6 +57,7 @@ public class UI_Inventory : MonoBehaviour
             var eventScript = newUIItem.AddComponent<SetEvent>();
 
             eventScript.item = item;
+            eventScript.id = item.id;
         }
     }
 }
