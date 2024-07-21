@@ -11,6 +11,7 @@ public class SetEvent : MonoBehaviour
     private EventsManager eventsManager;
 
     private Image borderImage;
+    private GameObject displayOptions;
 
     public Item item;
 
@@ -22,6 +23,8 @@ public class SetEvent : MonoBehaviour
     public void Deselected()
     {
         borderImage.enabled = false;
+        if (displayOptions.activeInHierarchy)
+            displayOptions.SetActive(false);
     }
 
     private void Awake()
@@ -29,6 +32,8 @@ public class SetEvent : MonoBehaviour
         eventTrigger = gameObject.AddComponent<EventTrigger>();
         eventsManager = FindAnyObjectByType<EventsManager>();
         borderImage = gameObject.transform.Find("Border").GetComponent<Image>();
+        displayOptions = transform.Find("DisplayOptions").gameObject;
+        displayOptions.SetActive(false);
 
         EventTrigger.Entry entry = new EventTrigger.Entry();
         entry.eventID = EventTriggerType.PointerClick;
@@ -38,6 +43,9 @@ public class SetEvent : MonoBehaviour
 
     private void OnItemClicked(PointerEventData data)
     {
-        eventsManager.SetCurrentSelection(gameObject, item);
+        if (data.button == PointerEventData.InputButton.Left)
+            eventsManager.SetCurrentSelection(gameObject, item);
+        else if (data.button == PointerEventData.InputButton.Right)
+            eventsManager.SetCurrentDisplayOptions(gameObject, displayOptions, item);
     }
 }

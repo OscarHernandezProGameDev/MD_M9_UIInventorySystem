@@ -14,6 +14,7 @@ public class EventsManager : MonoBehaviour, IPointerClickHandler
 
     private GameObject currentSelection;
     private SetEvent currentSetEvent;
+    private GameObject currentDisplayOptions;
 
     private Color transparent = new Color(0, 0, 0, 0);
 
@@ -36,14 +37,27 @@ public class EventsManager : MonoBehaviour, IPointerClickHandler
 
             currentSetEvent.Selected();
             currentSelection = selection;
+
+            currentSelectionImage.sprite = item.GetSprite();
+            currentSelectionImage.color = Color.white;
+            currentSelectionTitle.SetText(AddSpacesToCamelCase(item.itemType.ToString()));
+            currentSelectionDescription.SetText(item.GetDescription());
         }
         else
             CleanSelection();
+    }
 
-        currentSelectionImage.sprite = item.GetSprite();
-        currentSelectionImage.color = Color.white;
-        currentSelectionTitle.SetText(AddSpacesToCamelCase(item.itemType.ToString()));
-        currentSelectionDescription.SetText(item.GetDescription());
+    public void SetCurrentDisplayOptions(GameObject selection, GameObject displayOptions, Item item)
+    {
+        currentDisplayOptions = displayOptions;
+
+        if (currentSelection != selection)
+            SetCurrentSelection(selection, item);
+
+        if (displayOptions.activeInHierarchy)
+            displayOptions.SetActive(false);
+        else
+            displayOptions.SetActive(true);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -61,6 +75,12 @@ public class EventsManager : MonoBehaviour, IPointerClickHandler
             currentSelectionImage.color = transparent;
             currentSelectionTitle.SetText("");
             currentSelectionDescription.SetText("");
+        }
+
+        if (currentDisplayOptions != null)
+        {
+            currentDisplayOptions.SetActive(false);
+            currentDisplayOptions = null;
         }
     }
 
