@@ -54,7 +54,9 @@ public class UI_Inventory : MonoBehaviour
             else
                 uiText.transform.parent.gameObject.SetActive(false);
 
-            newUIItem.AddComponent<SetEvent>();
+            var eventScript = newUIItem.AddComponent<SetEvent>();
+
+            eventScript.item = item;
         }
     }
 }

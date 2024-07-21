@@ -12,6 +12,8 @@ public class SetEvent : MonoBehaviour
 
     private Image borderImage;
 
+    public Item item;
+
     public void Selected()
     {
         borderImage.enabled = true;
@@ -36,6 +38,6 @@ public class SetEvent : MonoBehaviour
 
     private void OnItemClicked(PointerEventData data)
     {
-        eventsManager.SetCurrentSelection(gameObject);
+        eventsManager.SetCurrentSelection(gameObject, item);
     }
 }

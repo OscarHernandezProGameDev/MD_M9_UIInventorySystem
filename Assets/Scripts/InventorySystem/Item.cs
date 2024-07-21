@@ -19,6 +19,14 @@ public class Item
     public ItemType itemType;
     public int amount;
 
+    private readonly string healthPotionDescription = "It heals 20 hp points. It's additive, take them easy.";
+
+    private readonly string manaPotionDescription = "It restore 20 mana points.";
+    private readonly string swordDescription = "It normal sword, it's cut things.";
+    private readonly string coinDescription = "It's a coin, it's valious.";
+    private readonly string stoneDescription = "A piece of stone material, you can use it to build things.";
+    private readonly string ringDescription = "The ring is a gift, keep it safe.";
+
     public Sprite GetSprite()
     {
         switch (itemType)
@@ -35,7 +43,7 @@ public class Item
 
     public bool IsStackable()
     {
-        switch(itemType)
+        switch (itemType)
         {
             default:
             case ItemType.HealthPotion:
@@ -44,8 +52,22 @@ public class Item
             case ItemType.Stone:
                 return true;
             case ItemType.Sword:
-            case ItemType.Ring: 
+            case ItemType.Ring:
                 return false;
+        }
+    }
+
+    public string GetDescription()
+    {
+        switch (itemType)
+        {
+            default:
+            case ItemType.HealthPotion: return healthPotionDescription;
+            case ItemType.ManaPotion: return manaPotionDescription;
+            case ItemType.Sword: return swordDescription;
+            case ItemType.Coin: return coinDescription;
+            case ItemType.Stone: return stoneDescription;
+            case ItemType.Ring: return ringDescription;
         }
     }
 }
