@@ -56,6 +56,7 @@ public class Inventory
             itemLists.Add(item);
             item.id = GenerateUniqueId();
         }
+
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
 
@@ -79,6 +80,19 @@ public class Inventory
         }
         else
             itemLists.Remove(item);
+
+        OnItemListChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void UseItem(Item item)
+    {
+        if (item.amount > 1)
+        {
+            item.amount--;
+        }
+        else
+            RemoveItem(item);
+
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
 

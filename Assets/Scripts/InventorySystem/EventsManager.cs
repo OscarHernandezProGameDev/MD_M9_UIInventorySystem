@@ -14,13 +14,13 @@ public class EventsManager : MonoBehaviour, IPointerClickHandler
 
     private GameObject currentSelection;
     private SetEvent currentSetEvent;
-    private GameObject currentDisplayOptions;
+    private GameObject selectedDisplayOptions;
 
     private Player player;
     private Inventory myInventory;
 
     private Button dropButton;
-    //private Button useButton;
+    private Button useButton;
 
     private Color transparent = new Color(0, 0, 0, 0);
 
@@ -59,7 +59,7 @@ public class EventsManager : MonoBehaviour, IPointerClickHandler
 
     public void SetCurrentDisplayOptions(GameObject selection, GameObject displayOptions, Item item, int id)
     {
-        currentDisplayOptions = displayOptions;
+        selectedDisplayOptions = displayOptions;
 
         if (currentSelection != selection)
             SetCurrentSelection(selection, item);
@@ -71,6 +71,13 @@ public class EventsManager : MonoBehaviour, IPointerClickHandler
             displayOptions.SetActive(true);
             dropButton = displayOptions.transform.Find("Panel/Button_Drop").GetComponent<Button>();
             dropButton.onClick.AddListener(() => DropItem(item, id));
+
+            useButton = displayOptions.transform.Find("Panel/Button_Use").GetComponent<Button>();
+
+            if (!item.IsStackable())
+                useButton.interactable = false;
+            else
+                useButton.onClick.AddListener(() => UseItem(item, id));
         }
     }
 
@@ -91,10 +98,19 @@ public class EventsManager : MonoBehaviour, IPointerClickHandler
             currentSelectionDescription.SetText("");
         }
 
-        if (currentDisplayOptions != null)
+        if (selectedDisplayOptions != null)
         {
-            currentDisplayOptions.SetActive(false);
-            currentDisplayOptions = null;
+            selectedDisplayOptions.SetActive(false);
+            selectedDisplayOptions = null;
+        }
+    }
+
+    public void UseItem(Item item, int id)
+    {
+        if (item.id == id)
+        {
+            player.UseItem(item);
+            CleanSelection();
         }
     }
 

@@ -14,6 +14,21 @@ public class Player : MonoBehaviour
 
     public bool AtInventory { get; private set; }
 
+    public void UseItem(Item item)
+    {
+        switch (item.itemType)
+        {
+            case Item.ItemType.HealthPotion:
+                Debug.Log("Health potion used");
+                break;
+            case Item.ItemType.ManaPotion:
+                Debug.Log("Mana potion used");
+                break;
+        }
+
+        inventory.UseItem(item);
+    }
+
     public Vector3 GetPosition()
     {
         return transform.position;

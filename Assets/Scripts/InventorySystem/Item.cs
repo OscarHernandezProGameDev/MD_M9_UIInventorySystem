@@ -58,6 +58,22 @@ public class Item
         }
     }
 
+    public bool IsUsable()
+    {
+        switch (itemType)
+        {
+            default:
+            case ItemType.HealthPotion:
+            case ItemType.ManaPotion:
+                return true;
+            case ItemType.Sword:
+            case ItemType.Coin:
+            case ItemType.Stone:
+            case ItemType.Ring:
+                return false;
+        }
+    }
+
     public string GetDescription()
     {
         switch (itemType)
