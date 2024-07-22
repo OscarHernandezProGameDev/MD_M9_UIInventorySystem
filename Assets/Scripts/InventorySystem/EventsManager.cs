@@ -121,6 +121,7 @@ public class EventsManager : MonoBehaviour, IPointerClickHandler
             Item duplicateItem = new Item { itemType = item.itemType, amount = item.amount };
 
             myInventory.RemoveItem(item);
+            CleanSelection();
             ItemWorld.DropItem(player.GetPosition(), duplicateItem);
         }
     }
