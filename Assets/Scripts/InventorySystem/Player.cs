@@ -34,6 +34,13 @@ public class Player : MonoBehaviour
         return transform.position;
     }
 
+    public void CloseInventory()
+    {
+        inventoryMenu.SetActive(false);
+        eventsManager.CleanSelection();
+        AtInventory = false;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -78,13 +85,6 @@ public class Player : MonoBehaviour
     {
         inventoryMenu.SetActive(true);
         AtInventory = true;
-    }
-
-    private void CloseInventory()
-    {
-        inventoryMenu.SetActive(false);
-        eventsManager.CleanSelection();
-        AtInventory = false;
     }
 
     internal Inventory GetInventory()
