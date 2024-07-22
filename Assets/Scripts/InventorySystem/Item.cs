@@ -20,11 +20,11 @@ public class Item
     public ItemType itemType;
     public int amount;
 
-    private readonly string healthPotionDescription = "It heals 20 hp points. It's additive, take them easy.";
+    private readonly string healthPotionDescription = "It heals 20 hp points. It's additive, take it easy.";
 
-    private readonly string manaPotionDescription = "It restore 20 mana points.";
+    private readonly string manaPotionDescription = "It restores 20 mana points.";
     private readonly string swordDescription = "It normal sword, it's cut things.";
-    private readonly string coinDescription = "It's a coin, it's valious.";
+    private readonly string coinDescription = "It's a coin, it's valuable.";
     private readonly string stoneDescription = "A piece of stone material, you can use it to build things.";
     private readonly string ringDescription = "The ring is a gift, keep it safe.";
 
